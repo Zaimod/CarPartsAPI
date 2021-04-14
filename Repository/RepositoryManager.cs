@@ -15,7 +15,7 @@ namespace Repository
         private ISuppliersRepository _suppliers;
         private IPartsRepository _parts;
         private ICategoryRepository _category;
-
+        private ILogsRepository _log;
         public ICarsRepository Cars
         {
             get
@@ -65,6 +65,19 @@ namespace Repository
                 }
 
                 return _category;
+            }
+        }
+
+        public ILogsRepository Logs
+        {
+            get
+            {
+                if(_log == null)
+                {
+                    _log = new LogsRepository(_repoContext);
+                }
+
+                return _log;
             }
         }
 

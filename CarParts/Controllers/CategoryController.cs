@@ -32,6 +32,7 @@ namespace CarParts.Controllers
             var categories = _repository.Category.GetAllCategories();
 
             _logger.LogInfo($"Returned all categories from database.");
+            
 
             var categoriesResult = _mapper.Map<IEnumerable<CategoryDto>>(categories);
 
@@ -60,6 +61,8 @@ namespace CarParts.Controllers
             if (category == null)
             {
                 _logger.LogError("CategoryForCreationDto object sent from client is null.");
+                _repository.Logs.AddLog(new Log { Type = "Error", Action = "create category", Message = $"CategoryForCreationDto object sent from client is null." });
+                await _repository.SaveAsync();
 
                 return BadRequest("CategoryForCreationDto object is null");
             }
@@ -67,6 +70,8 @@ namespace CarParts.Controllers
             if (!ModelState.IsValid)
             {
                 _logger.LogError("Invalid car object sent from client.");
+                _repository.Logs.AddLog(new Log { Type = "Error", Action = "create category", Message = $"CategoryForCreationDto object sent from client is null." });
+                await _repository.SaveAsync();
 
                 return BadRequest("Invalid model object");
             }

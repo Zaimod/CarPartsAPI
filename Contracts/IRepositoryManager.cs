@@ -12,6 +12,7 @@ namespace Contracts
         ISuppliersRepository Suppliers { get; }
         IPartsRepository Parts { get; }
         ICategoryRepository Category { get; }
+        ILogsRepository Logs { get; }
         Task SaveAsync();
     }
 }
