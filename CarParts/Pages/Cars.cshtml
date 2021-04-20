@@ -1,0 +1,20 @@
+﻿@page "/cars"
+@model CarParts.Pages.CarsModel
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<link rel="stylesheet" href="https://cdn.korzh.com/ed/1.2.4/easydata.min.css" />
+
+<div id="EasyDataContainer"></div>
+
+@section Scripts {
+    <script src="https://cdn.korzh.com/ed/1.2.4/easydata.min.js" type="text/javascript"></script>
+    <script>
+        window.addEventListener('load', function () {
+            new easydata.crud.EasyDataViewDispatcher({
+                rootEntity: "Cars"
+            }).run()
+        });
+    </script>
+}

@@ -17,7 +17,7 @@ namespace Entities
 
         public DbSet<Cars> Cars { get; set; }
         public DbSet<Suppliers> Suppliers { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Category> Category { get; set; }
         public DbSet<Parts> Parts { get; set; }
         public DbSet<Log> Logs { get; set; } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

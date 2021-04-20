@@ -19,7 +19,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Swashbuckle.AspNetCore.ReDoc;
+using EasyData.Services;
 
 namespace CarParts
 {
@@ -85,6 +86,7 @@ namespace CarParts
             services.AddScoped<ValidationFilterAttribute>();
             services.ConfigureJWT(Configuration);
             services.AddScoped<IAuthenticationManager, AuthenticateManager>();
+            services.AddRazorPages();
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,8 +94,10 @@ namespace CarParts
         {
             if (env.IsDevelopment())
             {
+                 
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
+                app.UseReDoc(c => c.SpecUrl("/swagger/v1/swagger.json"));
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarParts v1"));
             }
             else
@@ -118,6 +122,10 @@ namespace CarParts
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapEasyData((options => {
+                    options.UseDbContext<Entities.RepositoryContext>();
+                }));
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });         
         }
